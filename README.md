@@ -1,1 +1,1 @@
-React News WebApp
+React News Web Application
