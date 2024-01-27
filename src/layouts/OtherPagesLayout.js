@@ -14,12 +14,10 @@ export default function OtherPagesLayout({
   const [postPerPage, setPostPerPage] = React.useState(9);
 
   React.useEffect(() => {
-    //const news = [info]
     const newsData = info.map((val) => {
       return val;
     });
     setPost(newsData);
-    //console.log(newsData)
   }, [info]);
 
   const indexOfLastPost = currentPage * postPerPage;

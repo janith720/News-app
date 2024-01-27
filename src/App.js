@@ -1,20 +1,25 @@
 import "./App.css";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  useLocation,
+  useHistory,
+} from "react-router-dom";
 import General from "./layouts/General";
 import NewsDetails from "./layouts/NewsDetails";
-//import { useFetchHook } from "./customHook/useFetchHook";
-import React from "react";
+import React, { useEffect } from "react";
 import OtherPagesLayout from "./layouts/OtherPagesLayout";
 import axios from "axios";
 import OtherPagesDetails from "./layouts/OtherPagesDetails";
 import SportDetails from "./layouts/SportDetails";
 import InterDetails from "./layouts/InterDetails";
 
-const otherPages = [
+export const otherPages = [
   // {
   //   path: "/general",
   //   title: "General",
-  //   cat: 'general'
+  //   cat: "general",
   // },
   {
     path: "/business",
@@ -52,6 +57,13 @@ function App() {
   const [state, setState] = React.useState({ info: [], loading: true });
   const [categories, setCategories] = React.useState("general");
 
+  const history = useHistory();
+  console.log(useHistory);
+
+  useEffect(() => {
+    handleCat();
+  }, []);
+
   React.useEffect(() => {
     axios
       .get(
@@ -63,9 +75,11 @@ function App() {
       .catch((error) => {
         console.log(error.response);
       });
-    // console.log(state);
-    // console.log(categories);
   }, [categories]);
+
+  const handleCat = (id) => {
+    setCategories(id);
+  };
 
   return (
     <div className="App">
@@ -82,9 +96,7 @@ function App() {
                 key={key}
                 path={`${val.path}/:id`}
                 component={() => {
-                  return (
-                    <OtherPagesDetails info={state.info} />
-                  );
+                  return <OtherPagesDetails info={state.info} />;
                 }}
               />
             );
@@ -101,8 +113,7 @@ function App() {
                       title={val.title}
                       info={state.info}
                       category={val.path}
-                      handleCat={() => setCategories(val.cat)}
-                      //handleCat={() => console.log(val.cat)}
+                      handleCat={() => handleCat(val?.cat)}
                     />
                   );
                 }}

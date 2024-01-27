@@ -10,10 +10,6 @@ import "animate.css";
 import axios from "axios";
 
 export default function General() {
-  // const { info, loading } = useFetchHook(
-  //     `https://saurav.tech/NewsAPI/top-headlines/category/general/in.json`
-  // );
-
   const [state1, setState1] = React.useState([]);
   const [state2, setState2] = React.useState([]);
   const [state3, setState3] = React.useState([]);
@@ -21,31 +17,26 @@ export default function General() {
   React.useEffect(() => {
     axios
       .get(`https://saurav.tech/NewsAPI/top-headlines/category/general/in.json`)
-      .then((responce) => setState1(responce.data.articles))
-      //console.log(state)
+      .then((responce) => setState1(responce.data.articles));
   }, []);
 
   React.useEffect(() => {
     axios
       .get(`https://saurav.tech/NewsAPI/top-headlines/category/general/us.json`)
-      .then((responce) => setState2(responce.data.articles))
-      //console.log(state)
+      .then((responce) => setState2(responce.data.articles));
   }, []);
 
   React.useEffect(() => {
     axios
       .get(`https://saurav.tech/NewsAPI/top-headlines/category/sports/in.json`)
-      .then((responce) => setState3(responce.data.articles))
-      //console.log(state)
+      .then((responce) => setState3(responce.data.articles));
   }, []);
-
-  //console.log(state)
 
   return (
     <CommonLayout>
       <div>
         <Grid container spacing={2}>
-          <Grid item xs={12} sm={5} lg={3} >
+          <Grid item xs={12} sm={5} lg={3}>
             <LatestNews info={state1} />
           </Grid>
           <Grid item xs={12} sm={7} lg={6}>
